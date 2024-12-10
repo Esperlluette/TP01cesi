@@ -1,12 +1,14 @@
 package TP;
 
+import java.util.ArrayList;
+
 public class Library {
-    private Media[] medias;
-    private User[] users;
+    private ArrayList<Media> medias;
+    private ArrayList<User> users;
 
     Library() {
-        this.medias = new Media[] {};
-        this.users = new User[] {};
+        this.medias = new ArrayList<Media>();
+        this.users = new ArrayList<User>();
     }
 
     public void emprunterMedia(Media media, User user) {
@@ -17,29 +19,42 @@ public class Library {
         throw new UnsupportedOperationException("retour d'un média par un user pas encore implémenté.");
     }
 
-    public Media[] sortByYear() {
-        throw new UnsupportedOperationException("tri des médias par année pas encore implémenté.");
+    public void sortByYear() {
+        ArrayList<Media> sorted = new ArrayList<Media>();
+        for (Media ancestor : medias) {
+        Boolean b = true; 
+        for (Media image : medias) {
+            if (ancestor.year > image.year){
+                b = false;
+            }
+        }
+        if (b){
+            sorted.add(ancestor);
+        }
+       }
+       medias = sorted;
+       System.out.println("Medias triés");
     }
 
     public Media[] sortByTitle() {
         throw new UnsupportedOperationException("tri des medias par titre pas implémenté.");
     }
 
-    public Media[] lookByTitle(String title) {
-        Media[] matchs = new Media[] {};
+    public ArrayList<Media> lookByTitle(String title) {
+        ArrayList<Media> matchs = new ArrayList<Media>();
         for (Media media : this.medias) {
             if (media.name == title) {
-                matchs[matchs.length + 1] = media;
+                matchs.add(media);
             }
         }
         return matchs;
     }
 
     public void addMedia(Media media) {
-        this.medias[this.medias.length + 1] = media;
+        medias.add(media);
     }
 
     public void addUser(User user) {
-        this.users[this.users.length + 1] = user;
+        users.add(user);
     }
 }
