@@ -1,6 +1,7 @@
 package TP;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Library {
     private ArrayList<Media> medias;
@@ -19,21 +20,28 @@ public class Library {
         throw new UnsupportedOperationException("retour d'un média par un user pas encore implémenté.");
     }
 
-    public void sortByYear() {
-        ArrayList<Media> sorted = new ArrayList<Media>();
-        for (Media ancestor : medias) {
-        Boolean b = true; 
-        for (Media image : medias) {
-            if (ancestor.year > image.year){
-                b = false;
+    public void sortByYearDSC(){
+        sortByYearASC();
+        Collections.reverse(medias);
+        System.out.println("Médias triés par année décroissante.");
+    }
+    public void sortByYearASC() {
+        if (medias.isEmpty()) {
+            System.out.println("Liste de médias vide.");
+            return;
+        }
+        for (int i = 0; i < medias.size() - 1; i++) {
+            int minIndex = i;
+            for (int j = i + 1; j < medias.size(); j++) {
+                if (medias.get(j).year < medias.get(minIndex).year) {
+                    minIndex = j;
+                }
+            }
+            if (minIndex != i) {
+                Collections.swap(medias, i, minIndex);
             }
         }
-        if (b){
-            sorted.add(ancestor);
-        }
-       }
-       medias = sorted;
-       System.out.println("Medias triés");
+        System.out.println("Médias triés par année.");
     }
 
     public Media[] sortByTitle() {
