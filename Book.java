@@ -2,6 +2,9 @@ package TP;
 
 public class Book extends Media implements Empruntable{
     protected String author;
+    private static int emprunts = 0;
+    private static int ongoingEmprunts = 0;
+
 
     Book(int id, String name, String author, int year){
         super.id = id;
@@ -20,14 +23,29 @@ public class Book extends Media implements Empruntable{
 
     @Override
     public void emprunter() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'emprunter'");
+       setEmprunts(getEmprunts()+1);
+       setOngoingEmprunts(getOngoingEmprunts()+1);
     }
 
     @Override
     public void retouner() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retouner'");
+        setEmprunts(getEmprunts()-1);
+        setOngoingEmprunts(getOngoingEmprunts()-1);
     }
+
+    public static void setOngoingEmprunts(int ongoingEmprunts) {
+        Book.ongoingEmprunts = ongoingEmprunts;
+    }
+    public static int getOngoingEmprunts() {
+        return ongoingEmprunts;
+    }
+    
+    public static void setEmprunts(int emprunts) {
+        Book.emprunts = emprunts;
+    }
+    public static int getEmprunts() {
+        return emprunts;
+    }
+
 
 }

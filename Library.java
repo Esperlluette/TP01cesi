@@ -12,19 +12,62 @@ public class Library {
         this.users = new ArrayList<User>();
     }
 
+    public void getStatsEmprunts() {
+        int i = Film.getEmprunts();
+        int j = Book.getEmprunts();
+        if (i > j) {
+            System.out.println("Films are more emprunted than books.");
+        } else if (j > i) {
+            System.out.println("Books are more emprunted than films.");
+        } else {
+            System.out.println("Both films and books are emprunted the same way.");
+        }
+    }
+
     public void emprunterMedia(Media media, User user) {
-        throw new UnsupportedOperationException("Emprunt d'un média par un user pas encore implémenté.");
+        if (!(media instanceof Empruntable)) {
+            System.err.println("This media is not able to be empruntable.");
+            return;
+        }
+        ((Empruntable) media).emprunter();
+        user.emprunterMedia(media);
+        medias.remove(media);
+    }
+
+    public User getUserById(int id){
+        for (User user : users) {
+            if (user.getId() == id){
+                return user;
+            }
+        }
+        return null;
+    }
+
+    public Media getMediaById(int id){
+        for (Media media : medias) {
+            if (media.id == id){
+                return media;
+            }
+        }
+        return null;
     }
 
     public void retounerMedia(Media media, User user) {
-        throw new UnsupportedOperationException("retour d'un média par un user pas encore implémenté.");
+        if (!(media instanceof Empruntable)) {
+            System.err.println("This media is not able to be empruntable.");
+            return;
+        }
+        ((Empruntable)media).retouner();
+        user.retournerMedia(media);
+        medias.add(media);
     }
 
-    public void sortByYearDSC(){
+    public void sortByYearDSC() {
         sortByYearASC();
         Collections.reverse(medias);
         System.out.println("Médias triés par année décroissante.");
     }
+
     public void sortByYearASC() {
         if (medias.isEmpty()) {
             System.out.println("Liste de médias vide.");

@@ -6,6 +6,12 @@ public class Main {
         setupLibraryMedias(library);
         setupLibraryUsers(library);
 
+        User user = library.getUserById(4);
+        Media media = library.getMediaById(4);
+
+        library.emprunterMedia(media, user);
+        System.out.println("feur!");
+
     }
 
     static public void setupLibraryMedias(Library library) {

@@ -1,12 +1,14 @@
 package TP;
 
-public class Film extends Media implements Empruntable{
+public class Film extends Media implements Empruntable {
     protected String realisateur;
     protected String duree;
+    private static int emprunts = 0;
+    private static int ongoingEmprunts = 0;
 
-    Film(int id, String name, String realisateur,String duree, int year){
+    Film(int id, String name, String realisateur, String duree, int year) {
         super.id = id;
-        super.name = name; 
+        super.name = name;
         this.realisateur = realisateur;
         this.duree = duree;
         super.year = year;
@@ -14,23 +16,39 @@ public class Film extends Media implements Empruntable{
 
     @Override
     public void getDetails() {
-        System.out.println("id : " + super.id + 
-        "\nname : " + super.name + 
-        "\nrealisateur : " + this.realisateur +
-        "\nduree : " + this.duree + 
-        "\nyear : " + super.year);
+        System.out.println("id : " + super.id +
+                "\nname : " + super.name +
+                "\nrealisateur : " + this.realisateur +
+                "\nduree : " + this.duree +
+                "\nyear : " + super.year);
     }
+
+
 
     @Override
     public void emprunter() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'emprunter'");
+       setEmprunts(getEmprunts()+1);
+       setOngoingEmprunts(getOngoingEmprunts()+1);
     }
 
     @Override
     public void retouner() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'retouner'");
+        setEmprunts(getEmprunts()-1);
+        setOngoingEmprunts(getOngoingEmprunts()-1);
+    }
+
+    public static void setOngoingEmprunts(int ongoingEmprunts) {
+        Film.ongoingEmprunts = ongoingEmprunts;
+    }
+    public static int getOngoingEmprunts() {
+        return ongoingEmprunts;
+    }
+    public static void setEmprunts(int emprunts) {
+        Film.emprunts = emprunts;
+    }
+
+    public static int getEmprunts() {
+        return emprunts;
     }
 
 }
